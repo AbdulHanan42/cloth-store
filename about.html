@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Fashion Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Enhanced Loader -->
+    <div id="loader" class="loader-overlay">
+        <div class="loader-spinner">
+            <div class="fashion-loader"></div>
+            <i class="fas fa-shopping-bag loader-bag"></i>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="loader-text">Loading About Page...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-shopping-bag"></i> Fashion Store
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="products.html?category=summer">Summer Collection</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=winter">Winter Collection</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=essential">Essential Wear</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=unstitched">Unstitched</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=ready">Ready to Wear</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="saleLink">Sale <span class="badge bg-danger">HOT</span></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartCount">
+                                0
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="about-hero py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center min-vh-100">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <h1 class="display-4 fw-bold mb-4">About Fashion Store</h1>
+                    <p class="lead mb-4">We believe in empowering women through fashion that combines style, comfort, and affordability.</p>
+                    <p class="mb-4">Founded in 2020, Fashion Store has become a trusted destination for women seeking quality clothing that reflects their personality and lifestyle.</p>
+                    <div class="d-flex gap-3">
+                        <a href="products.html" class="btn btn-primary btn-lg">Shop Now</a>
+                        <a href="#contact" class="btn btn-outline-primary btn-lg">Contact Us</a>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <img src="https://picsum.photos/seed/about-hero/600/400" alt="About Fashion Store" class="img-fluid rounded shadow">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Mission -->
+    <section class="mission py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5" data-aos="fade-up">
+                    <h2 class="display-5 fw-bold">Our Mission</h2>
+                    <p class="lead">To provide exceptional fashion that makes every woman feel confident and beautiful</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-gem fa-3x text-primary"></i>
+                        </div>
+                        <h4>Quality First</h4>
+                        <p>We source the finest materials and work with skilled artisans to ensure every piece meets our high standards.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-heart fa-3x text-danger"></i>
+                        </div>
+                        <h4>Passion for Fashion</h4>
+                        <p>Our team of fashion enthusiasts stays ahead of trends to bring you the latest styles and timeless classics.</p>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-users fa-3x text-success"></i>
+                        </div>
+                        <h4>Customer Focus</h4>
+                        <p>Your satisfaction is our priority. We're committed to providing excellent service and a seamless shopping experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Story -->
+    <section class="our-story py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4" data-aos="fade-right">
+                    <img src="https://picsum.photos/seed/story/500/400" alt="Our Story" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-lg-6 mb-4" data-aos="fade-left">
+                    <h2 class="display-5 fw-bold mb-4">Our Story</h2>
+                    <p class="mb-3">Fashion Store began as a small boutique with a big dream: to make high-quality fashion accessible to every woman.</p>
+                    <p class="mb-3">What started as a passion project quickly grew into a beloved brand, thanks to our commitment to quality, style, and customer satisfaction.</p>
+                    <p class="mb-3">Today, we're proud to serve thousands of customers worldwide, offering curated collections that celebrate diversity and individuality.</p>
+                    <p>From our humble beginnings to our current success, our core values remain unchanged: quality, integrity, and a genuine love for fashion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Values -->
+    <section class="values py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5" data-aos="fade-up">
+                    <h2 class="display-5 fw-bold">Our Values</h2>
+                    <p class="lead">The principles that guide everything we do</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-leaf fa-2x text-success me-3"></i>
+                                <h4 class="mb-0">Sustainability</h4>
+                            </div>
+                            <p>We're committed to sustainable practices, from eco-friendly materials to ethical manufacturing processes.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-diversity fa-2x text-primary me-3"></i>
+                                <h4 class="mb-0">Inclusivity</h4>
+                            </div>
+                            <p>Fashion is for everyone. We celebrate diversity and offer sizes and styles that flatter every body type.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-handshake fa-2x text-warning me-3"></i>
+                                <h4 class="mb-0">Integrity</h4>
+                            </div>
+                            <p>We believe in honest business practices, transparent pricing, and building trust with our customers.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="fas fa-lightbulb fa-2x text-info me-3"></i>
+                                <h4 class="mb-0">Innovation</h4>
+                            </div>
+                            <p>We constantly innovate our designs, shopping experience, and customer service to exceed expectations.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5" data-aos="fade-up">
+                    <h2 class="display-5 fw-bold">Meet Our Team</h2>
+                    <p class="lead">The passionate people behind Fashion Store</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-center">
+                        <img src="https://picsum.photos/seed/team1/200/200" alt="Team Member" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                        <h5>Sarah Johnson</h5>
+                        <p class="text-muted">Founder & CEO</p>
+                        <div class="social-links">
+                            <a href="#" class="text-muted me-2"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-muted me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-muted"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-center">
+                        <img src="https://picsum.photos/seed/team2/200/200" alt="Team Member" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                        <h5>Emily Chen</h5>
+                        <p class="text-muted">Creative Director</p>
+                        <div class="social-links">
+                            <a href="#" class="text-muted me-2"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-muted me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-muted"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="text-center">
+                        <img src="https://picsum.photos/seed/team3/200/200" alt="Team Member" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                        <h5>Maria Rodriguez</h5>
+                        <p class="text-muted">Head of Design</p>
+                        <div class="social-links">
+                            <a href="#" class="text-muted me-2"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-muted me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-muted"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="text-center">
+                        <img src="https://picsum.photos/seed/team4/200/200" alt="Team Member" class="img-fluid rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;">
+                        <h5>Lisa Thompson</h5>
+                        <p class="text-muted">Customer Experience</p>
+                        <div class="social-links">
+                            <a href="#" class="text-muted me-2"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="text-muted me-2"><i class="fab fa-twitter"></i></a>
+                            <a href="#" class="text-muted"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 text-center mb-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="counter">
+                        <h2 class="display-4 fw-bold text-primary" data-target="50000">0</h2>
+                        <p class="lead">Happy Customers</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center mb-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="counter">
+                        <h2 class="display-4 fw-bold text-success" data-target="1000">0</h2>
+                        <p class="lead">Products Sold</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="counter">
+                        <h2 class="display-4 fw-bold text-warning" data-target="50">0</h2>
+                        <p class="lead">Designer Brands</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 text-center mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="counter">
+                        <h2 class="display-4 fw-bold text-danger" data-target="15">0</h2>
+                        <p class="lead">Countries Served</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact py-5 bg-light" id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center mb-5" data-aos="fade-up">
+                    <h2 class="display-5 fw-bold">Get In Touch</h2>
+                    <p class="lead">We'd love to hear from you</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 mb-4" data-aos="fade-right">
+                    <div class="contact-info">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-map-marker-alt fa-2x text-primary me-3"></i>
+                            <div>
+                                <h5>Address</h5>
+                                <p>123 Fashion Street, Style City, SC 12345</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-phone fa-2x text-primary me-3"></i>
+                            <div>
+                                <h5>Phone</h5>
+                                <p>+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="fas fa-envelope fa-2x text-primary me-3"></i>
+                            <div>
+                                <h5>Email</h5>
+                                <p>info@fashionstore.com</p>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-clock fa-2x text-primary me-3"></i>
+                            <div>
+                                <h5>Business Hours</h5>
+                                <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM<br>Sunday: Closed</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4" data-aos="fade-left">
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="subject" class="form-label">Subject</label>
+                                <input type="text" class="form-control" id="subject" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Fashion Store</h5>
+                    <p>Your destination for premium women's clothing</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="about.html" class="text-white-50">About Us</a></li>
+                        <li><a href="#" class="text-white-50">Contact</a></li>
+                        <li><a href="#" class="text-white-50">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p>&copy; 2024 Fashion Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // About Page Specific JavaScript
+        $(document).ready(function() {
+            animateCounters();
+        });
+
+        function animateCounters() {
+            $('.counter').each(function() {
+                const $this = $(this);
+                const $target = $this.find('[data-target]');
+                const target = parseInt($target.data('target'));
+                const increment = target / 100;
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        $target.text(Math.ceil(current).toLocaleString());
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        $target.text(target.toLocaleString());
+                    }
+                };
+
+                // Start animation when element is in viewport
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            updateCounter();
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                });
+
+                observer.observe($this[0]);
+            });
+        }
+
+        // Contact form submission
+        $('#contactForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            const name = $('#name').val();
+            const email = $('#email').val();
+            const subject = $('#subject').val();
+            const message = $('#message').val();
+            
+            // In a real app, this would send the data to a server
+            showToast('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>

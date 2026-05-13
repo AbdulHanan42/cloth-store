@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - Fashion Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Enhanced Loader -->
+    <div id="loader" class="loader-overlay">
+        <div class="loader-spinner">
+            <div class="fashion-loader"></div>
+            <i class="fas fa-shopping-bag loader-bag"></i>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="loader-text">Loading Products...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-shopping-bag"></i> Fashion Store
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="products.html?category=summer">Summer Collection</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=winter">Winter Collection</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=essential">Essential Wear</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=unstitched">Unstitched</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=ready">Ready to Wear</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="saleLink">Sale <span class="badge bg-danger">HOT</span></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartCount">
+                                0
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item active">Products</li>
+                        </ol>
+                    </nav>
+                    <h1 class="display-5 fw-bold" id="pageTitle">All Products</h1>
+                    <p class="lead">Discover our amazing collection</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section py-5">
+        <div class="container">
+            <div class="row">
+                <!-- Filters Sidebar -->
+                <div class="col-lg-3 mb-4">
+                    <div class="filter-sidebar" data-aos="fade-right">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Filters</h5>
+                                
+                                <!-- Categories Filter -->
+                                <div class="mb-4">
+                                    <h6 class="mb-3">Categories</h6>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="catSummer" value="summer">
+                                        <label class="form-check-label" for="catSummer">Summer Collection</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="catWinter" value="winter">
+                                        <label class="form-check-label" for="catWinter">Winter Collection</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="catEssential" value="essential">
+                                        <label class="form-check-label" for="catEssential">Essential Wear</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="catUnstitched" value="unstitched">
+                                        <label class="form-check-label" for="catUnstitched">Unstitched</label>
+                                    </div>
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input" type="checkbox" id="catReady" value="ready">
+                                        <label class="form-check-label" for="catReady">Ready to Wear</label>
+                                    </div>
+                                </div>
+
+                                <!-- Price Range -->
+                                <div class="mb-4">
+                                    <h6 class="mb-3">Price Range</h6>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <input type="number" class="form-control" id="minPrice" placeholder="Min">
+                                        </div>
+                                        <div class="col-6">
+                                            <input type="number" class="form-control" id="maxPrice" placeholder="Max">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Size Filter -->
+                                <div class="mb-4">
+                                    <h6 class="mb-3">Size</h6>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <button class="btn btn-outline-secondary btn-sm size-btn" data-size="XS">XS</button>
+                                        <button class="btn btn-outline-secondary btn-sm size-btn" data-size="S">S</button>
+                                        <button class="btn btn-outline-secondary btn-sm size-btn" data-size="M">M</button>
+                                        <button class="btn btn-outline-secondary btn-sm size-btn" data-size="L">L</button>
+                                        <button class="btn btn-outline-secondary btn-sm size-btn" data-size="XL">XL</button>
+                                    </div>
+                                </div>
+
+                                <!-- Color Filter -->
+                                <div class="mb-4">
+                                    <h6 class="mb-3">Color</h6>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <button class="btn color-btn" data-color="Black" style="background-color: black; width: 30px; height: 30px; border-radius: 50%;"></button>
+                                        <button class="btn color-btn" data-color="White" style="background-color: white; border: 1px solid #ccc; width: 30px; height: 30px; border-radius: 50%;"></button>
+                                        <button class="btn color-btn" data-color="Red" style="background-color: red; width: 30px; height: 30px; border-radius: 50%;"></button>
+                                        <button class="btn color-btn" data-color="Blue" style="background-color: blue; width: 30px; height: 30px; border-radius: 50%;"></button>
+                                        <button class="btn color-btn" data-color="Green" style="background-color: green; width: 30px; height: 30px; border-radius: 50%;"></button>
+                                    </div>
+                                </div>
+
+                                <!-- Sale Items Only -->
+                                <div class="mb-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="saleOnly">
+                                        <label class="form-check-label" for="saleOnly">Sale Items Only</label>
+                                    </div>
+                                </div>
+
+                                <!-- Apply Filters Button -->
+                                <button class="btn btn-primary w-100" onclick="applyFilters()">Apply Filters</button>
+                                <button class="btn btn-outline-secondary w-100 mt-2" onclick="resetFilters()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Products Grid -->
+                <div class="col-lg-9">
+                    <!-- Sort and View Options -->
+                    <div class="d-flex justify-content-between align-items-center mb-4" data-aos="fade-up">
+                        <div>
+                            <span class="text-muted">Showing <span id="productCount">0</span> products</span>
+                        </div>
+                        <div class="d-flex gap-2">
+                            <select class="form-select" id="sortSelect">
+                                <option value="default">Sort by: Featured</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="name">Name: A to Z</option>
+                                <option value="rating">Rating: High to Low</option>
+                            </select>
+                            <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-outline-secondary active" id="gridView">
+                                    <i class="fas fa-th"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" id="listView">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Products Container -->
+                    <div class="row g-4" id="productsContainer">
+                        <!-- Products will be dynamically inserted here -->
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav aria-label="Page navigation" class="mt-5">
+                        <ul class="pagination justify-content-center" id="pagination">
+                            <!-- Pagination will be dynamically inserted here -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Fashion Store</h5>
+                    <p>Your destination for premium women's clothing</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="about.html" class="text-white-50">About Us</a></li>
+                        <li><a href="#" class="text-white-50">Contact</a></li>
+                        <li><a href="#" class="text-white-50">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p>&copy; 2024 Fashion Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>

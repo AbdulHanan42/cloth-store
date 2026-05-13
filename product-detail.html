@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail - Fashion Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Enhanced Loader -->
+    <div id="loader" class="loader-overlay">
+        <div class="loader-spinner">
+            <div class="fashion-loader"></div>
+            <i class="fas fa-shopping-bag loader-bag"></i>
+            <div class="loading-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="loader-text">Loading Product...</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-shopping-bag"></i> Fashion Store
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="products.html?category=summer">Summer Collection</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=winter">Winter Collection</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=essential">Essential Wear</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=unstitched">Unstitched</a></li>
+                            <li><a class="dropdown-item" href="products.html?category=ready">Ready to Wear</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="saleLink">Sale <span class="badge bg-danger">HOT</span></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fas fa-user"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartCount">
+                                0
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="products.html">Products</a></li>
+                            <li class="breadcrumb-item active" id="productName">Product Detail</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Detail Section -->
+    <section class="product-detail py-5">
+        <div class="container">
+            <div class="row" id="productDetailContainer">
+                <!-- Product details will be dynamically inserted here -->
+            </div>
+
+            <!-- Product Tabs -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <ul class="nav nav-tabs" id="productTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab">Description</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab">Reviews</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="shipping-tab" data-bs-toggle="tab" data-bs-target="#shipping" type="button" role="tab">Shipping & Returns</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="productTabContent">
+                        <div class="tab-pane fade show active" id="description" role="tabpanel">
+                            <div class="p-4">
+                                <h5>Product Description</h5>
+                                <p id="productDescription">Loading description...</p>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="reviews" role="tabpanel">
+                            <div class="p-4">
+                                <h5>Customer Reviews</h5>
+                                <div id="productReviews">
+                                    <!-- Reviews will be dynamically inserted here -->
+                                </div>
+                                <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#reviewModal">Write a Review</button>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="shipping" role="tabpanel">
+                            <div class="p-4">
+                                <h5>Shipping & Returns</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6>Shipping Information</h6>
+                                        <ul>
+                                            <li>Free shipping on orders over $100</li>
+                                            <li>Standard shipping: 5-7 business days</li>
+                                            <li>Express shipping: 2-3 business days</li>
+                                            <li>International shipping available</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6>Return Policy</h6>
+                                        <ul>
+                                            <li>30-day return policy</li>
+                                            <li>Items must be unworn and with tags</li>
+                                            <li>Original packaging required</li>
+                                            <li>Refund or exchange available</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Products -->
+            <div class="row mt-5">
+                <div class="col-12">
+                    <h3 class="mb-4">Related Products</h3>
+                    <div class="row g-4" id="relatedProducts">
+                        <!-- Related products will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Review Modal -->
+    <div class="modal fade" id="reviewModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Write a Review</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reviewForm">
+                        <div class="mb-3">
+                            <label for="reviewName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="reviewName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reviewRating" class="form-label">Rating</label>
+                            <select class="form-select" id="reviewRating" required>
+                                <option value="">Choose rating...</option>
+                                <option value="5">5 Stars - Excellent</option>
+                                <option value="4">4 Stars - Very Good</option>
+                                <option value="3">3 Stars - Good</option>
+                                <option value="2">2 Stars - Fair</option>
+                                <option value="1">1 Star - Poor</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="reviewText" class="form-label">Review</label>
+                            <textarea class="form-control" id="reviewText" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Fashion Store</h5>
+                    <p>Your destination for premium women's clothing</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="about.html" class="text-white-50">About Us</a></li>
+                        <li><a href="#" class="text-white-50">Contact</a></li>
+                        <li><a href="#" class="text-white-50">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="text-white me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p>&copy; 2024 Fashion Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Product Detail Page Specific JavaScript
+        let currentProduct = null;
+
+        $(document).ready(function() {
+            loadProductDetail();
+        });
+
+        function loadProductDetail() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productId = urlParams.get('id');
+            
+            if (!productId) {
+                window.location.href = 'products.html';
+                return;
+            }
+
+            // Find product across all categories
+            Object.keys(products).forEach(category => {
+                const found = products[category].find(p => p.id === productId);
+                if (found) currentProduct = found;
+            });
+
+            if (!currentProduct) {
+                $('#productDetailContainer').html('<div class="col-12"><p>Product not found</p></div>');
+                return;
+            }
+
+            displayProductDetail();
+            loadRelatedProducts();
+            updateBreadcrumb();
+        }
+
+        function displayProductDetail() {
+            const stars = generateStars(currentProduct.rating);
+            const discount = Math.round(((currentProduct.originalPrice - currentProduct.price) / currentProduct.originalPrice) * 100);
+
+            const productHTML = `
+                <div class="col-lg-6 mb-4" data-aos="fade-right">
+                    <div class="product-images">
+                        <div class="main-image mb-3">
+                            <img src="${currentProduct.image}" alt="${currentProduct.name}" class="img-fluid rounded" id="mainProductImage">
+                        </div>
+                        <div class="thumbnail-images d-flex gap-2">
+                            <img src="${currentProduct.image}" alt="Thumbnail 1" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;" onclick="changeMainImage('${currentProduct.image}')">
+                            <img src="https://picsum.photos/seed/${currentProduct.id}-2/400/500" alt="Thumbnail 2" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;" onclick="changeMainImage('https://picsum.photos/seed/${currentProduct.id}-2/400/500')">
+                            <img src="https://picsum.photos/seed/${currentProduct.id}-3/400/500" alt="Thumbnail 3" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;" onclick="changeMainImage('https://picsum.photos/seed/${currentProduct.id}-3/400/500')">
+                            <img src="https://picsum.photos/seed/${currentProduct.id}-4/400/500" alt="Thumbnail 4" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;" onclick="changeMainImage('https://picsum.photos/seed/${currentProduct.id}-4/400/500')">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 mb-4" data-aos="fade-left">
+                    <div class="product-info">
+                        <h2 class="mb-3">${currentProduct.name}</h2>
+                        <div class="product-rating mb-3">
+                            ${stars} <span class="text-muted">(${currentProduct.reviews} reviews)</span>
+                        </div>
+                        <div class="price-section mb-4">
+                            <span class="h3 text-primary">$${currentProduct.price}</span>
+                            ${currentProduct.sale ? `<span class="text-muted text-decoration-line-through ms-2">$${currentProduct.originalPrice}</span>` : ''}
+                            ${currentProduct.sale ? `<span class="badge bg-danger ms-2">${discount}% OFF</span>` : ''}
+                        </div>
+                        <p class="text-muted mb-4">${currentProduct.description}</p>
+                        
+                        <div class="mb-4">
+                            <h6>Size</h6>
+                            <div class="d-flex gap-2 flex-wrap">
+                                ${currentProduct.sizes.map(size => `<button class="btn btn-outline-secondary size-option" data-size="${size}">${size}</button>`).join('')}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h6>Color</h6>
+                            <div class="d-flex gap-2 flex-wrap">
+                                ${currentProduct.colors.map(color => `<button class="btn btn-outline-secondary color-option" data-color="${color}">${color}</button>`).join('')}
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h6>Material</h6>
+                            <p class="text-muted">${currentProduct.material}</p>
+                        </div>
+
+                        <div class="action-buttons d-flex gap-3 mb-4">
+                            <button class="btn btn-primary btn-lg flex-fill" onclick="addToCart('${currentProduct.id}')">
+                                <i class="fas fa-shopping-cart me-2"></i>Add to Cart
+                            </button>
+                            <button class="btn btn-success btn-lg" onclick="buyNow('${currentProduct.id}')">
+                                <i class="fas fa-bolt me-2"></i>Buy Now
+                            </button>
+                        </div>
+
+                        <div class="product-features">
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-check text-success me-2"></i>Free shipping on orders over $100</li>
+                                <li><i class="fas fa-check text-success me-2"></i>30-day return policy</li>
+                                <li><i class="fas fa-check text-success me-2"></i>Secure payment</li>
+                                <li><i class="fas fa-check text-success me-2"></i>100% authentic products</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            $('#productDetailContainer').html(productHTML);
+            $('#productDescription').text(currentProduct.description);
+            
+            // Initialize size and color selection
+            $('.size-option').first().addClass('active');
+            $('.color-option').first().addClass('active');
+        }
+
+        function changeMainImage(imageSrc) {
+            $('#mainProductImage').attr('src', imageSrc);
+        }
+
+        function loadRelatedProducts() {
+            const relatedProducts = $('#relatedProducts');
+            relatedProducts.empty();
+
+            // Find related products from same category
+            let related = [];
+            Object.keys(products).forEach(category => {
+                if (products[category].some(p => p.id === currentProduct.id)) {
+                    related = products[category].filter(p => p.id !== currentProduct.id).slice(0, 4);
+                }
+            });
+
+            related.forEach((product, index) => {
+                const productCard = createProductCard(product, index);
+                relatedProducts.append(productCard);
+            });
+        }
+
+        function updateBreadcrumb() {
+            $('#productName').text(currentProduct.name);
+        }
+
+        // Size and color selection
+        $(document).on('click', '.size-option', function() {
+            $('.size-option').removeClass('active');
+            $(this).addClass('active');
+        });
+
+        $(document).on('click', '.color-option', function() {
+            $('.color-option').removeClass('active');
+            $(this).addClass('active');
+        });
+
+        // Review form submission
+        $('#reviewForm').on('submit', function(e) {
+            e.preventDefault();
+            const name = $('#reviewName').val();
+            const rating = $('#reviewRating').val();
+            const text = $('#reviewText').val();
+            
+            // Add review to product (in real app, this would be saved to backend)
+            showToast('Review submitted successfully!');
+            $('#reviewModal').modal('hide');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
