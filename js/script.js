@@ -1,4 +1,4 @@
-// Fashion Store JavaScript
+// Glowsn JavaScript
 
 // Product Data Structure
 const products = {
@@ -201,7 +201,7 @@ const products = {
             name: 'Designer Lawn Suit',
             price: 39.99,
             originalPrice: 59.99,
-            image: 'https://picsum.photos/seed/unstitched1/400/500',
+            image: 'images/unstich/unstich1.webp',
             category: 'unstitched',
             subcategory: 'lawn',
             rating: 4.4,
@@ -218,7 +218,7 @@ const products = {
             name: 'Cotton Silk Fabric',
             price: 54.99,
             originalPrice: 74.99,
-            image: 'https://picsum.photos/seed/unstitched2/400/500',
+            image: 'images/unstich/unstich2.webp',
             category: 'unstitched',
             subcategory: 'cotton-silk',
             rating: 4.6,
@@ -229,6 +229,57 @@ const products = {
             material: 'Cotton Silk',
             sale: false,
             featured: false
+        },
+        {
+            id: 'u3',
+            name: 'Embroidered Unstitched Set',
+            price: 69.99,
+            originalPrice: 89.99,
+            image: 'images/unstich/unstich3.webp',
+            category: 'unstitched',
+            subcategory: 'embroidered',
+            rating: 4.7,
+            reviews: 26,
+            description: 'Beautiful embroidered unstitched dress material for custom tailoring',
+            sizes: ['3 Piece'],
+            colors: ['Beige', 'Blush'],
+            material: 'Cotton',
+            sale: true,
+            featured: true
+        },
+        {
+            id: 'u4',
+            name: 'Printed Unstitched Fabric',
+            price: 49.99,
+            originalPrice: 64.99,
+            image: 'images/unstich/unstich4.webp',
+            category: 'unstitched',
+            subcategory: 'printed',
+            rating: 4.5,
+            reviews: 19,
+            description: 'Colorful printed unstitched fabric perfect for everyday wear',
+            sizes: ['3 Piece'],
+            colors: ['Coral', 'Mint'],
+            material: 'Lawn',
+            sale: false,
+            featured: false
+        },
+        {
+            id: 'u5',
+            name: 'Luxury Unstitched Set',
+            price: 79.99,
+            originalPrice: 99.99,
+            image: 'images/unstich/unstich5.webp',
+            category: 'unstitched',
+            subcategory: 'luxury',
+            rating: 4.8,
+            reviews: 22,
+            description: 'Premium unstitched luxury set with refined details',
+            sizes: ['3 Piece'],
+            colors: ['Ivory', 'Gold'],
+            material: 'Silk Blend',
+            sale: true,
+            featured: true
         }
     ],
     ready: [
@@ -237,7 +288,7 @@ const products = {
             name: 'Formal Gown',
             price: 249.99,
             originalPrice: 349.99,
-            image: 'https://picsum.photos/seed/ready1/400/500',
+            image: 'images/ready-wear/wear1.webp',
             category: 'ready',
             subcategory: 'formal',
             rating: 4.8,
@@ -254,7 +305,7 @@ const products = {
             name: 'Casual Jumpsuit',
             price: 79.99,
             originalPrice: 99.99,
-            image: 'https://picsum.photos/seed/ready2/400/500',
+            image: 'images/ready-wear/waer2.webp',
             category: 'ready',
             subcategory: 'casual',
             rating: 4.3,
@@ -263,6 +314,74 @@ const products = {
             sizes: ['XS', 'S', 'M', 'L'],
             colors: ['Khaki', 'Navy', 'Black'],
             material: 'Cotton Blend',
+            sale: false,
+            featured: false
+        },
+        {
+            id: 'r3',
+            name: 'Printed Lawn Dress',
+            price: 119.99,
+            originalPrice: 149.99,
+            image: 'images/ready-wear/wear3.webp',
+            category: 'ready',
+            subcategory: 'casual',
+            rating: 4.6,
+            reviews: 28,
+            description: 'Fresh printed dress ideal for daytime and weekend wear',
+            sizes: ['XS', 'S', 'M', 'L', 'XL'],
+            colors: ['Peach', 'Cream', 'Green'],
+            material: 'Cotton Blend',
+            sale: false,
+            featured: false
+        },
+        {
+            id: 'r4',
+            name: 'Silk Party Set',
+            price: 179.99,
+            originalPrice: 229.99,
+            image: 'images/ready-wear/waer4.webp',
+            category: 'ready',
+            subcategory: 'festive',
+            rating: 4.9,
+            reviews: 51,
+            description: 'Luxurious party-ready silk set with delicate embroidery',
+            sizes: ['S', 'M', 'L', 'XL'],
+            colors: ['Mauve', 'Gold'],
+            material: 'Silk',
+            sale: true,
+            featured: true
+        },
+        {
+            id: 'r5',
+            name: 'Embroidered Tunic',
+            price: 99.99,
+            originalPrice: 129.99,
+            image: 'images/ready-wear/waer5.webp',
+            category: 'ready',
+            subcategory: 'designer',
+            rating: 4.7,
+            reviews: 37,
+            description: 'Stylish embroidered tunic designed for modern wearers',
+            sizes: ['XS', 'S', 'M', 'L'],
+            colors: ['Pink', 'Ivory'],
+            material: 'Lawn',
+            sale: false,
+            featured: false
+        },
+        {
+            id: 'r6',
+            name: 'Chic Evening Outfit',
+            price: 139.99,
+            originalPrice: 179.99,
+            image: 'images/ready-wear/waer6.webp',
+            category: 'ready',
+            subcategory: 'evening',
+            rating: 4.5,
+            reviews: 33,
+            description: 'Chic evening outfit perfect for dinner and events',
+            sizes: ['S', 'M', 'L', 'XL'],
+            colors: ['Purple', 'Black'],
+            material: 'Silk Blend',
             sale: false,
             featured: false
         }
@@ -275,38 +394,103 @@ const categories = [
         id: 'summer',
         name: 'Summer Collection',
         description: 'Light and breathable fabrics for warm weather',
-        image: 'https://picsum.photos/seed/cat-summer/400/300',
+        image: 'images/signa-1.webp',
         icon: 'fa-sun'
     },
     {
         id: 'winter',
         name: 'Winter Collection',
         description: 'Warm and cozy clothing for cold seasons',
-        image: 'https://picsum.photos/seed/cat-winter/400/300',
+        image: 'images/signa-2.webp',
         icon: 'fa-snowflake'
     },
     {
         id: 'essential',
         name: 'Essential Wear',
         description: 'Timeless pieces for every wardrobe',
-        image: 'https://picsum.photos/seed/cat-essential/400/300',
+        image: 'images/signa-3.webp',
         icon: 'fa-star'
     },
     {
         id: 'unstitched',
         name: 'Unstitched',
         description: 'Premium fabrics for custom tailoring',
-        image: 'https://picsum.photos/seed/cat-unstitched/400/300',
+        image: 'images/signa-4.webp',
         icon: 'fa-cut'
     },
     {
         id: 'ready',
         name: 'Ready to Wear',
         description: 'Stitched outfits ready to wear',
-        image: 'https://picsum.photos/seed/cat-ready/400/300',
+        image: 'images/signa-5.webp',
         icon: 'fa-tshirt'
     }
 ];
+
+let heroSlideIndex = 0;
+let heroSliderInterval = null;
+
+function loadHeroSlider() {
+    const heroSlider = $('#heroSlider');
+    heroSlider.empty();
+
+    categories.forEach((category, index) => {
+        const slide = `
+            <div class="hero-slide${index === 0 ? ' active' : ''}">
+                <img src="${category.image}" alt="${category.name}">
+                <div class="slide-overlay">
+                    <span>Featured Category</span>
+                    <h3>${category.name}</h3>
+                    <p>${category.description}</p>
+                </div>
+            </div>
+        `;
+        heroSlider.append(slide);
+    });
+
+    heroSlider.append('<button class="slider-nav prev"><i class="fas fa-chevron-left"></i></button>');
+    heroSlider.append('<button class="slider-nav next"><i class="fas fa-chevron-right"></i></button>');
+
+    const dots = $('<div class="slider-dots"></div>');
+    categories.forEach((_, index) => {
+        dots.append(`<div class="slider-dot${index === 0 ? ' active' : ''}" data-index="${index}"></div>`);
+    });
+    heroSlider.append(dots);
+
+    heroSlider.find('.slider-nav.prev').on('click', prevHeroSlide);
+    heroSlider.find('.slider-nav.next').on('click', nextHeroSlide);
+    heroSlider.find('.slider-dot').on('click', function () {
+        goToHeroSlide(parseInt($(this).attr('data-index')));
+    });
+
+    startHeroSliderAuto();
+}
+
+function updateHeroSlide(index) {
+    heroSlideIndex = index;
+    $('.hero-slide').removeClass('active').eq(index).addClass('active');
+    $('.slider-dot').removeClass('active').eq(index).addClass('active');
+}
+
+function nextHeroSlide() {
+    const nextIndex = (heroSlideIndex + 1) % categories.length;
+    updateHeroSlide(nextIndex);
+}
+
+function prevHeroSlide() {
+    const prevIndex = (heroSlideIndex - 1 + categories.length) % categories.length;
+    updateHeroSlide(prevIndex);
+}
+
+function goToHeroSlide(index) {
+    if (index === heroSlideIndex) return;
+    updateHeroSlide(index);
+}
+
+function startHeroSliderAuto() {
+    clearInterval(heroSliderInterval);
+    heroSliderInterval = setInterval(nextHeroSlide, 5000);
+}
 
 // Shopping Cart
 let cart = JSON.parse(localStorage.getItem('fashionStoreCart')) || [];
@@ -333,6 +517,7 @@ function initializeApp() {
 
     // Load homepage content
     if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+        loadHeroSlider();
         loadCategories();
         loadFeaturedProducts();
         startCountdown();

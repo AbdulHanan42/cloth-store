@@ -1,4 +1,4 @@
-# Fashion Store E-commerce Website
+# Glowsn E-commerce Website
 
 A complete frontend e-commerce website for women's clothing built with HTML, CSS, Bootstrap, and JavaScript.
 
@@ -107,4 +107,4 @@ Everything runs entirely in the browser using JavaScript and localStorage!
 4. View product details
 5. Experience the full e-commerce flow!
 
-Enjoy your Fashion Store! 🛍️✨
+Enjoy your Glowsn! 🛍️✨
