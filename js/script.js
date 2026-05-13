@@ -372,12 +372,17 @@ function createProductCard(product, index) {
                 <div class="product-image">
                     <img src="${product.image}" alt="${product.name}">
                     ${product.sale ? `<span class="product-badge">${discount}% OFF</span>` : ''}
-                    <div class="product-actions">
-                        <button class="btn-quick-view" onclick="quickView('${product.id}')">
-                            <i class="fas fa-eye"></i> Quick View
-                        </button>
-                        <button class="btn-add-cart" onclick="addToCart('${product.id}')">
-                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                    <div class="product-actions d-flex flex-column gap-2">
+                        <div class="d-flex gap-2">
+                            <button class="btn-quick-view w-100" onclick="quickView('${product.id}')">
+                                <i class="fas fa-eye"></i> Quick View
+                            </button>
+                            <button class="btn-add-cart w-100" onclick="addToCart('${product.id}')">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                        </div>
+                        <button class="btn-buy-now w-100" onclick="buyNow('${product.id}')">
+                            <i class="fas fa-bolt"></i> Buy Now
                         </button>
                     </div>
                 </div>
@@ -479,9 +484,7 @@ function showToast(message) {
 
 // Quick View Product
 function quickView(productId) {
-    // This would open a modal with product details
-    console.log('Quick view for product:', productId);
-    showToast('Quick view coming soon!');
+    window.location.href = `product-detail.html?id=${productId}`;
 }
 
 // Countdown Timer
