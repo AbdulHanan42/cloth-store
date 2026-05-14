@@ -5,52 +5,52 @@ const products = {
     summer: [
         {
             id: 's1',
-            name: 'Floral Summer Dress',
+            name: 'Yellow Printed Lawn Suit',
             price: 89.99,
             originalPrice: 129.99,
-            image: 'https://picsum.photos/seed/summer1/400/500',
+            image: 'images/ess-sum-1.webp',
             category: 'summer',
-            subcategory: 'dresses',
+            subcategory: 'suits',
             rating: 4.5,
             reviews: 23,
-            description: 'Beautiful floral print dress perfect for summer occasions',
+            description: 'Vibrant yellow printed 3-piece lawn suit with embroidered dupatta, perfect for summer gatherings',
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
-            colors: ['Pink', 'Blue', 'Yellow'],
-            material: 'Cotton',
+            colors: ['Yellow', 'Mustard'],
+            material: 'Lawn',
             sale: true,
             featured: true
         },
         {
             id: 's2',
-            name: 'Linen Blouse',
+            name: 'Teal Embroidered Lawn Suit',
             price: 59.99,
             originalPrice: 79.99,
-            image: 'https://picsum.photos/seed/summer2/400/500',
+            image: 'images/ess-sum-2.webp',
             category: 'summer',
-            subcategory: 'tops',
+            subcategory: 'suits',
             rating: 4.3,
             reviews: 18,
-            description: 'Lightweight linen blouse for casual summer wear',
+            description: 'Elegant teal lawn suit with intricate embroidery and floral printed dupatta for a chic summer look',
             sizes: ['XS', 'S', 'M', 'L'],
-            colors: ['White', 'Beige', 'Light Blue'],
-            material: 'Linen',
+            colors: ['Teal', 'Sea Green'],
+            material: 'Lawn',
             sale: false,
             featured: false
         },
         {
             id: 's3',
-            name: 'Beach Maxi Skirt',
+            name: 'Pastel Floral Lawn Suit',
             price: 49.99,
             originalPrice: 69.99,
-            image: 'https://picsum.photos/seed/summer3/400/500',
+            image: 'images/ess-sum-3.webp',
             category: 'summer',
-            subcategory: 'bottoms',
+            subcategory: 'suits',
             rating: 4.7,
             reviews: 31,
-            description: 'Flowing maxi skirt perfect for beach days',
+            description: 'Soft pastel yellow lawn suit with delicate floral embroidery and scalloped hem details',
             sizes: ['S', 'M', 'L', 'XL'],
-            colors: ['Turquoise', 'Coral', 'White'],
-            material: 'Polyester',
+            colors: ['Pastel Yellow', 'Cream'],
+            material: 'Lawn',
             sale: true,
             featured: true
         }
@@ -58,105 +58,139 @@ const products = {
     winter: [
         {
             id: 'w1',
-            name: 'Wool Coat',
+            name: 'Embroidered Woolen Suit',
             price: 199.99,
             originalPrice: 299.99,
-            image: 'https://picsum.photos/seed/winter1/400/500',
+            image: 'images/winter/ess-win-1.webp',
             category: 'winter',
             subcategory: 'outerwear',
             rating: 4.8,
             reviews: 45,
-            description: 'Warm and stylish wool coat for winter',
+            description: 'Elegant embroidered woolen suit, perfect for winter formal events.',
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
-            colors: ['Black', 'Navy', 'Camel'],
+            colors: ['Maroon', 'Deep Red'],
             material: 'Wool',
             sale: true,
             featured: true
         },
         {
             id: 'w2',
-            name: 'Cashmere Sweater',
+            name: 'Classic Velvet Shawl Suit',
             price: 129.99,
             originalPrice: 179.99,
-            image: 'https://picsum.photos/seed/winter2/400/500',
+            image: 'images/winter/ess-win-2.webp',
             category: 'winter',
             subcategory: 'tops',
             rating: 4.9,
             reviews: 67,
-            description: 'Luxurious cashmere sweater for ultimate comfort',
+            description: 'Premium velvet shawl suit with intricate embroidery for ultimate warmth and style.',
             sizes: ['XS', 'S', 'M', 'L'],
-            colors: ['Cream', 'Gray', 'Burgundy'],
-            material: 'Cashmere',
+            colors: ['Black', 'Gold'],
+            material: 'Velvet',
             sale: false,
             featured: false
         },
         {
             id: 'w3',
-            name: 'Winter Boots',
+            name: 'Winter Pashmina Suit',
             price: 89.99,
             originalPrice: 129.99,
-            image: 'https://picsum.photos/seed/winter3/400/500',
+            image: 'images/winter/ess-win-3.webp',
             category: 'winter',
             subcategory: 'footwear',
             rating: 4.4,
             reviews: 28,
-            description: 'Warm and waterproof winter boots',
+            description: 'Soft and warm pashmina suit featuring traditional winter patterns.',
             sizes: ['6', '7', '8', '9', '10'],
-            colors: ['Black', 'Brown'],
-            material: 'Leather',
+            colors: ['Blue', 'Silver'],
+            material: 'Pashmina',
             sale: true,
             featured: true
+        },
+        {
+            id: 'w4',
+            name: 'Premium Karandi Suit',
+            price: 149.99,
+            originalPrice: 199.99,
+            image: 'images/winter/ess-win-4.webp',
+            category: 'winter',
+            subcategory: 'suits',
+            rating: 4.7,
+            reviews: 52,
+            description: 'High-quality Karandi fabric suit with modern cuts and traditional embroidery.',
+            sizes: ['S', 'M', 'L', 'XL'],
+            colors: ['Emerald Green'],
+            material: 'Karandi',
+            sale: false,
+            featured: true
+        },
+        {
+            id: 'w5',
+            name: 'Designer Khaddar Suit',
+            price: 110.00,
+            originalPrice: 150.00,
+            image: 'images/winter/ess-win-5.webp',
+            category: 'winter',
+            subcategory: 'suits',
+            rating: 4.6,
+            reviews: 39,
+            description: 'Stylish designer Khaddar suit, a must-have for the cold season.',
+            sizes: ['S', 'M', 'L', 'XL'],
+            colors: ['Teal', 'Ochre'],
+            material: 'Khaddar',
+            sale: true,
+            featured: false
         }
     ],
     essential: [
         {
             id: 'e1',
-            name: 'Classic White Shirt',
+            name: 'Navy Embroidered Suit',
             price: 49.99,
             originalPrice: 69.99,
-            image: 'https://picsum.photos/seed/essential1/400/500',
+            image: 'images/ess-sum-4.webp',
             category: 'essential',
-            subcategory: 'tops',
+            subcategory: 'suits',
             rating: 4.6,
             reviews: 89,
-            description: 'Timeless white shirt for every wardrobe',
+            description: 'Sophisticated navy blue suit with silver thread embroidery on kurta and dupatta, a wardrobe essential',
             sizes: ['XS', 'S', 'M', 'L', 'XL'],
-            colors: ['White'],
-            material: 'Cotton',
+            colors: ['Navy Blue', 'Midnight'],
+            material: 'Cambric',
             sale: false,
             featured: true
         },
         {
             id: 'e2',
-            name: 'Black Jeans',
+            name: 'White Floral Printed Suit',
             price: 79.99,
             originalPrice: 99.99,
-            image: 'https://picsum.photos/seed/essential2/400/500',
+            image: 'images/ess-sum-5.webp',
             category: 'essential',
-            subcategory: 'bottoms',
+            subcategory: 'suits',
             rating: 4.5,
             reviews: 56,
-            description: 'Versatile black jeans for any occasion',
-            sizes: ['24', '26', '28', '30', '32'],
-            colors: ['Black'],
-            material: 'Denim',
+            description: 'Fresh white suit with delicate pink floral print and keyhole neckline detailing, an everyday essential',
+            sizes: ['XS', 'S', 'M', 'L', 'XL'],
+            colors: ['White', 'Off-White'],
+            material: 'Cotton',
             sale: false,
             featured: false
         },
         {
             id: 'e3',
-            name: 'Leather Handbag',
+            name: 'Classic Embroidered Kameez',
             price: 149.99,
             originalPrice: 199.99,
-            image: 'https://picsum.photos/seed/essential3/400/500',
+            image: 'images/ess-sum-1.webp',
             category: 'essential',
-            subcategory: 'accessories',
+            subcategory: 'suits',
             rating: 4.7,
             reviews: 34,
-            description: 'Classic leather handbag with timeless design',
-            sizes: ['One Size'],
-            colors: ['Black', 'Brown', 'Tan'],
-            material: 'Leather',
+            description: 'A classic printed kameez with geometric embroidery — a timeless piece for every occasion',
+            sizes: ['XS', 'S', 'M', 'L', 'XL'],
+            colors: ['Yellow', 'Mustard'],
+            material: 'Lawn',
             sale: true,
             featured: true
         }
@@ -167,7 +201,7 @@ const products = {
             name: 'Designer Lawn Suit',
             price: 39.99,
             originalPrice: 59.99,
-            image: 'https://picsum.photos/seed/unstitched1/400/500',
+            image: 'images/unstich/unstich1.webp',
             category: 'unstitched',
             subcategory: 'lawn',
             rating: 4.4,
@@ -184,7 +218,7 @@ const products = {
             name: 'Cotton Silk Fabric',
             price: 54.99,
             originalPrice: 74.99,
-            image: 'https://picsum.photos/seed/unstitched2/400/500',
+            image: 'images/unstich/unstich2.webp',
             category: 'unstitched',
             subcategory: 'cotton-silk',
             rating: 4.6,
@@ -195,6 +229,57 @@ const products = {
             material: 'Cotton Silk',
             sale: false,
             featured: false
+        },
+        {
+            id: 'u3',
+            name: 'Embroidered Unstitched Set',
+            price: 69.99,
+            originalPrice: 89.99,
+            image: 'images/unstich/unstich3.webp',
+            category: 'unstitched',
+            subcategory: 'embroidered',
+            rating: 4.7,
+            reviews: 26,
+            description: 'Beautiful embroidered unstitched dress material for custom tailoring',
+            sizes: ['3 Piece'],
+            colors: ['Beige', 'Blush'],
+            material: 'Cotton',
+            sale: true,
+            featured: true
+        },
+        {
+            id: 'u4',
+            name: 'Printed Unstitched Fabric',
+            price: 49.99,
+            originalPrice: 64.99,
+            image: 'images/unstich/unstich4.webp',
+            category: 'unstitched',
+            subcategory: 'printed',
+            rating: 4.5,
+            reviews: 19,
+            description: 'Colorful printed unstitched fabric perfect for everyday wear',
+            sizes: ['3 Piece'],
+            colors: ['Coral', 'Mint'],
+            material: 'Lawn',
+            sale: false,
+            featured: false
+        },
+        {
+            id: 'u5',
+            name: 'Luxury Unstitched Set',
+            price: 79.99,
+            originalPrice: 99.99,
+            image: 'images/unstich/unstich5.webp',
+            category: 'unstitched',
+            subcategory: 'luxury',
+            rating: 4.8,
+            reviews: 22,
+            description: 'Premium unstitched luxury set with refined details',
+            sizes: ['3 Piece'],
+            colors: ['Ivory', 'Gold'],
+            material: 'Silk Blend',
+            sale: true,
+            featured: true
         }
     ],
     ready: [
@@ -203,7 +288,7 @@ const products = {
             name: 'Formal Gown',
             price: 249.99,
             originalPrice: 349.99,
-            image: 'https://picsum.photos/seed/ready1/400/500',
+            image: 'images/ready-wear/wear1.webp',
             category: 'ready',
             subcategory: 'formal',
             rating: 4.8,
@@ -220,7 +305,7 @@ const products = {
             name: 'Casual Jumpsuit',
             price: 79.99,
             originalPrice: 99.99,
-            image: 'https://picsum.photos/seed/ready2/400/500',
+            image: 'images/ready-wear/waer2.webp',
             category: 'ready',
             subcategory: 'casual',
             rating: 4.3,
@@ -229,6 +314,74 @@ const products = {
             sizes: ['XS', 'S', 'M', 'L'],
             colors: ['Khaki', 'Navy', 'Black'],
             material: 'Cotton Blend',
+            sale: false,
+            featured: false
+        },
+        {
+            id: 'r3',
+            name: 'Printed Lawn Dress',
+            price: 119.99,
+            originalPrice: 149.99,
+            image: 'images/ready-wear/wear3.webp',
+            category: 'ready',
+            subcategory: 'casual',
+            rating: 4.6,
+            reviews: 28,
+            description: 'Fresh printed dress ideal for daytime and weekend wear',
+            sizes: ['XS', 'S', 'M', 'L', 'XL'],
+            colors: ['Peach', 'Cream', 'Green'],
+            material: 'Cotton Blend',
+            sale: false,
+            featured: false
+        },
+        {
+            id: 'r4',
+            name: 'Silk Party Set',
+            price: 179.99,
+            originalPrice: 229.99,
+            image: 'images/ready-wear/waer4.webp',
+            category: 'ready',
+            subcategory: 'festive',
+            rating: 4.9,
+            reviews: 51,
+            description: 'Luxurious party-ready silk set with delicate embroidery',
+            sizes: ['S', 'M', 'L', 'XL'],
+            colors: ['Mauve', 'Gold'],
+            material: 'Silk',
+            sale: true,
+            featured: true
+        },
+        {
+            id: 'r5',
+            name: 'Embroidered Tunic',
+            price: 99.99,
+            originalPrice: 129.99,
+            image: 'images/ready-wear/waer5.webp',
+            category: 'ready',
+            subcategory: 'designer',
+            rating: 4.7,
+            reviews: 37,
+            description: 'Stylish embroidered tunic designed for modern wearers',
+            sizes: ['XS', 'S', 'M', 'L'],
+            colors: ['Pink', 'Ivory'],
+            material: 'Lawn',
+            sale: false,
+            featured: false
+        },
+        {
+            id: 'r6',
+            name: 'Chic Evening Outfit',
+            price: 139.99,
+            originalPrice: 179.99,
+            image: 'images/ready-wear/waer6.webp',
+            category: 'ready',
+            subcategory: 'evening',
+            rating: 4.5,
+            reviews: 33,
+            description: 'Chic evening outfit perfect for dinner and events',
+            sizes: ['S', 'M', 'L', 'XL'],
+            colors: ['Purple', 'Black'],
+            material: 'Silk Blend',
             sale: false,
             featured: false
         }
@@ -241,38 +394,103 @@ const categories = [
         id: 'summer',
         name: 'Summer Collection',
         description: 'Light and breathable fabrics for warm weather',
-        image: 'https://picsum.photos/seed/cat-summer/400/300',
+        image: 'images/signa-1.webp',
         icon: 'fa-sun'
     },
     {
         id: 'winter',
         name: 'Winter Collection',
         description: 'Warm and cozy clothing for cold seasons',
-        image: 'https://picsum.photos/seed/cat-winter/400/300',
+        image: 'images/signa-2.webp',
         icon: 'fa-snowflake'
     },
     {
         id: 'essential',
         name: 'Essential Wear',
         description: 'Timeless pieces for every wardrobe',
-        image: 'https://picsum.photos/seed/cat-essential/400/300',
+        image: 'images/signa-3.webp',
         icon: 'fa-star'
     },
     {
         id: 'unstitched',
         name: 'Unstitched',
         description: 'Premium fabrics for custom tailoring',
-        image: 'https://picsum.photos/seed/cat-unstitched/400/300',
+        image: 'images/signa-4.webp',
         icon: 'fa-cut'
     },
     {
         id: 'ready',
         name: 'Ready to Wear',
         description: 'Stitched outfits ready to wear',
-        image: 'https://picsum.photos/seed/cat-ready/400/300',
+        image: 'images/signa-5.webp',
         icon: 'fa-tshirt'
     }
 ];
+
+let heroSlideIndex = 0;
+let heroSliderInterval = null;
+
+function loadHeroSlider() {
+    const heroSlider = $('#heroSlider');
+    heroSlider.empty();
+
+    categories.forEach((category, index) => {
+        const slide = `
+            <div class="hero-slide${index === 0 ? ' active' : ''}">
+                <img src="${category.image}" alt="${category.name}">
+                <div class="slide-overlay">
+                    <span>Featured Category</span>
+                    <h3>${category.name}</h3>
+                    <p>${category.description}</p>
+                </div>
+            </div>
+        `;
+        heroSlider.append(slide);
+    });
+
+    heroSlider.append('<button class="slider-nav prev"><i class="fas fa-chevron-left"></i></button>');
+    heroSlider.append('<button class="slider-nav next"><i class="fas fa-chevron-right"></i></button>');
+
+    const dots = $('<div class="slider-dots"></div>');
+    categories.forEach((_, index) => {
+        dots.append(`<div class="slider-dot${index === 0 ? ' active' : ''}" data-index="${index}"></div>`);
+    });
+    heroSlider.append(dots);
+
+    heroSlider.find('.slider-nav.prev').on('click', prevHeroSlide);
+    heroSlider.find('.slider-nav.next').on('click', nextHeroSlide);
+    heroSlider.find('.slider-dot').on('click', function () {
+        goToHeroSlide(parseInt($(this).attr('data-index')));
+    });
+
+    startHeroSliderAuto();
+}
+
+function updateHeroSlide(index) {
+    heroSlideIndex = index;
+    $('.hero-slide').removeClass('active').eq(index).addClass('active');
+    $('.slider-dot').removeClass('active').eq(index).addClass('active');
+}
+
+function nextHeroSlide() {
+    const nextIndex = (heroSlideIndex + 1) % categories.length;
+    updateHeroSlide(nextIndex);
+}
+
+function prevHeroSlide() {
+    const prevIndex = (heroSlideIndex - 1 + categories.length) % categories.length;
+    updateHeroSlide(prevIndex);
+}
+
+function goToHeroSlide(index) {
+    if (index === heroSlideIndex) return;
+    updateHeroSlide(index);
+}
+
+function startHeroSliderAuto() {
+    clearInterval(heroSliderInterval);
+    heroSliderInterval = setInterval(nextHeroSlide, 5000);
+}
 
 // Shopping Cart
 let cart = JSON.parse(localStorage.getItem('fashionStoreCart')) || [];
@@ -317,6 +535,7 @@ function initializeApp() {
 
     // Load homepage content
     if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+        loadHeroSlider();
         loadCategories();
         loadFeaturedProducts();
         startCountdown();
