@@ -498,14 +498,32 @@ let cart = JSON.parse(localStorage.getItem('fashionStoreCart')) || [];
 // Make cart globally accessible
 window.cart = cart;
 
+// Performance: Cache DOM elements
+let cachedElements = {};
+
+// Cache frequently used DOM elements
+function cacheElements() {
+    cachedElements = {
+        loader: $('#loader'),
+        cartCount: $('#cartCount'),
+        searchModal: $('#searchModal'),
+        searchInput: $('#searchInput'),
+        searchResults: $('#searchResults'),
+        productsContainer: $('#productsContainer'),
+        productCount: $('#productCount')
+    };
+}
+
 // Initialize App
 $(document).ready(function() {
+    cacheElements();
     initializeApp();
 });
 
 function initializeApp() {
     // Hide loader after page loads
     setTimeout(() => {
+        cachedElements.loader.addClass('hidden');
         $('#loader').addClass('hidden');
     }, 1500);
 
@@ -530,6 +548,9 @@ function initializeApp() {
 
     // Update cart count
     updateCartCount();
+
+    // Update Auth UI
+    updateAuthUI();
 
     // Initialize scroll effects
     initScrollEffects();
@@ -642,6 +663,14 @@ function navigateToCategory(categoryId) {
 
 // Add to Cart
 function addToCart(productId) {
+    if (!isLoggedIn()) {
+        showToast('Please login to add items to cart');
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 1500);
+        return;
+    }
+
     let product = null;
     
     // Find product across all categories
@@ -671,7 +700,7 @@ function addToCart(productId) {
 // Update Cart Count
 function updateCartCount() {
     const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-    $('#cartCount').text(totalItems);
+    cachedElements.cartCount.text(totalItems);
 }
 
 // Show Toast Notification
@@ -777,11 +806,19 @@ function init3DEffects() {
 function loadProducts() {
     const urlParams = new URLSearchParams(window.location.search);
     const category = urlParams.get('category');
+    const search = urlParams.get('search');
     
     let productsToShow = [];
-    if (category && products[category]) {
+    let pageTitle = 'Products';
+    
+    if (search) {
+        // Handle search from URL parameter
+        productsToShow = searchProducts(search);
+        pageTitle = `Search Results for "${search}"`;
+        $('#productCount').text(productsToShow.length);
+    } else if (category && products[category]) {
         productsToShow = products[category];
-        $('h1').text(`${categories.find(c => c.id === category)?.name || 'Products'}`);
+        pageTitle = categories.find(c => c.id === category)?.name || 'Products';
     } else {
         // Show all products
         Object.keys(products).forEach(cat => {
@@ -789,9 +826,24 @@ function loadProducts() {
         });
     }
     
+    // Update page title
+    $('h1').text(pageTitle);
+    
     // Display products
     const productsContainer = $('#productsContainer');
     productsContainer.empty();
+    
+    if (productsToShow.length === 0) {
+        productsContainer.html(`
+            <div class="col-12 text-center py-5">
+                <i class="fas fa-search fa-4x text-muted mb-3"></i>
+                <h4>No products found</h4>
+                <p class="text-muted">Try adjusting your search or filters</p>
+                <button class="btn btn-primary mt-3" onclick="resetFilters()">Reset Filters</button>
+            </div>
+        `);
+        return;
+    }
     
     productsToShow.forEach((product, index) => {
         const productCard = createProductCard(product, index);
@@ -801,23 +853,18 @@ function loadProducts() {
 
 // Buy Now Function
 function buyNow(productId) {
+    if (!isLoggedIn()) {
+        showToast('Please login to buy items');
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 1500);
+        return;
+    }
     addToCart(productId);
     window.location.href = 'cart.html';
 }
 
 // Filter Products
-function filterProducts() {
-    // Implementation for product filtering
-    console.log('Filter products');
-}
-
-// Search Products
-function searchProducts(query) {
-    // Implementation for product search
-    console.log('Search products:', query);
-}
-
-// Apply Filters
 function applyFilters() {
     const checkedCategories = [];
     $('input[type="checkbox"][id^="cat"]:checked').each(function() {
@@ -855,6 +902,127 @@ function applyFilters() {
     // Display filtered products
     displayFilteredProducts(filteredProducts);
 }
+
+// Search Products
+function searchProducts(query) {
+    if (!query || query.length < 2) return [];
+    
+    query = query.toLowerCase();
+    let allProducts = [];
+    
+    // Get all products from all categories
+    Object.keys(products).forEach(category => {
+        products[category].forEach(product => {
+            allProducts.push({...product, category});
+        });
+    });
+    
+    // Filter products based on search query
+    const filtered = allProducts.filter(product => {
+        return product.name.toLowerCase().includes(query) ||
+               product.description.toLowerCase().includes(query) ||
+               product.category.toLowerCase().includes(query) ||
+               product.material.toLowerCase().includes(query) ||
+               product.colors.some(color => color.toLowerCase().includes(query));
+    });
+    
+    return filtered;
+}
+
+// Perform Search
+function performSearch() {
+    const query = $('#searchInput').val().trim();
+    const resultsContainer = $('#searchResults');
+    
+    if (!query) {
+        resultsContainer.html(`
+            <div class="text-center text-muted">
+                <i class="fas fa-search fa-3x mb-3"></i>
+                <p>Please enter a search term...</p>
+            </div>
+        `);
+        return;
+    }
+    
+    const results = searchProducts(query);
+    
+    if (results.length === 0) {
+        resultsContainer.html(`
+            <div class="text-center text-muted">
+                <i class="fas fa-search fa-3x mb-3"></i>
+                <p>No products found for "${query}"</p>
+            </div>
+        `);
+        return;
+    }
+    
+    // Display search results
+    let resultsHTML = '<div class="row g-3">';
+    results.slice(0, 6).forEach(product => {
+        const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100);
+        const stars = generateStars(product.rating);
+        
+        resultsHTML += `
+            <div class="col-md-6">
+                <div class="card h-100">
+                    <div class="row g-0">
+                        <div class="col-4">
+                            <img src="${product.image}" alt="${product.name}" class="img-fluid rounded-start h-100" style="object-fit: cover;">
+                        </div>
+                        <div class="col-8">
+                            <div class="card-body p-2">
+                                <h6 class="card-title">${product.name}</h6>
+                                <div class="small text-muted mb-1">${stars} (${product.reviews})</div>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <span class="fw-bold text-primary">$${product.price}</span>
+                                        ${product.sale ? `<span class="text-decoration-line-through text-muted small ms-1">$${product.originalPrice}</span>` : ''}
+                                    </div>
+                                    <button class="btn btn-sm btn-primary" onclick="addToCart('${product.id}'); $('#searchModal').modal('hide');">
+                                        <i class="fas fa-cart-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    resultsHTML += '</div>';
+    
+    if (results.length > 6) {
+        resultsHTML += `
+            <div class="text-center mt-3">
+                <a href="products.html?search=${encodeURIComponent(query)}" class="btn btn-outline-primary">View all ${results.length} results</a>
+            </div>
+        `;
+    }
+    
+    resultsContainer.html(resultsHTML);
+}
+
+// Live search as user types
+$(document).on('input', '#searchInput', function() {
+    const query = $(this).val().trim();
+    if (query.length >= 2) {
+        performSearch();
+    } else if (query.length === 0) {
+        $('#searchResults').html(`
+            <div class="text-center text-muted">
+                <i class="fas fa-search fa-3x mb-3"></i>
+                <p>Start typing to search for products...</p>
+            </div>
+        `);
+    }
+});
+
+// Handle search on Enter key
+$(document).on('keypress', '#searchInput', function(e) {
+    if (e.which === 13) {
+        performSearch();
+    }
+});
 
 // Reset Filters
 function resetFilters() {
@@ -928,3 +1096,550 @@ $('#listView').on('click', function() {
     $('#gridView').removeClass('active');
     $('#productsContainer .col-lg-3').removeClass('col-lg-3').addClass('col-lg-12');
 });
+
+// ========================================
+// Authentication & Profile System
+// ========================================
+
+function isLoggedIn() {
+    return localStorage.getItem('fashionStoreCurrentUser') !== null;
+}
+
+function getCurrentUser() {
+    const data = localStorage.getItem('fashionStoreCurrentUser');
+    return data ? JSON.parse(data) : null;
+}
+
+function getUsers() {
+    return JSON.parse(localStorage.getItem('fashionStoreUsers')) || [];
+}
+
+function saveUsers(users) {
+    localStorage.setItem('fashionStoreUsers', JSON.stringify(users));
+}
+
+function saveCurrentUser(user) {
+    localStorage.setItem('fashionStoreCurrentUser', JSON.stringify(user));
+}
+
+// Show auth alert message
+function showAuthAlert(containerId, message, type) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    
+    const icons = {
+        success: 'fa-check-circle',
+        danger: 'fa-exclamation-circle',
+        warning: 'fa-exclamation-triangle',
+        info: 'fa-info-circle'
+    };
+    
+    container.innerHTML = `
+        <div class="auth-alert-content auth-alert-${type}">
+            <i class="fas ${icons[type] || icons.info}"></i>
+            <span>${message}</span>
+        </div>
+    `;
+    container.style.display = 'block';
+    
+    // Auto hide after 5 seconds
+    setTimeout(() => {
+        container.style.display = 'none';
+    }, 5000);
+}
+
+// Email validation
+function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+// Phone validation
+function isValidPhone(phone) {
+    return /^[\d\s\-\+\(\)]{7,15}$/.test(phone);
+}
+
+// Toggle password visibility
+function togglePassword(fieldId) {
+    const field = document.getElementById(fieldId);
+    const btn = field.parentElement.querySelector('.password-toggle i');
+    if (field.type === 'password') {
+        field.type = 'text';
+        btn.classList.remove('fa-eye');
+        btn.classList.add('fa-eye-slash');
+    } else {
+        field.type = 'password';
+        btn.classList.remove('fa-eye-slash');
+        btn.classList.add('fa-eye');
+    }
+}
+
+// ========================================
+// SIGNUP
+// ========================================
+function handleSignup(event) {
+    event.preventDefault();
+    
+    const name = $('#name').val().trim();
+    const email = $('#email').val().trim();
+    const phone = $('#phone').val().trim();
+    const address = $('#address').val().trim();
+    const password = $('#password').val();
+    const confirmPassword = $('#confirmPassword').val();
+    const agreeTerms = $('#agreeTerms').is(':checked');
+
+    // Clear previous errors
+    $('.invalid-feedback').text('').hide();
+    $('.auth-input').removeClass('is-invalid');
+
+    // Validation
+    let hasError = false;
+
+    if (!name || name.length < 2) {
+        showFieldError('name', 'nameError', 'Please enter a valid name (at least 2 characters)');
+        hasError = true;
+    }
+
+    if (!email || !isValidEmail(email)) {
+        showFieldError('email', 'emailError', 'Please enter a valid email address');
+        hasError = true;
+    }
+
+    if (!phone || !isValidPhone(phone)) {
+        showFieldError('phone', 'phoneError', 'Please enter a valid phone number');
+        hasError = true;
+    }
+
+    if (!address || address.length < 5) {
+        showFieldError('address', 'addressError', 'Please enter your shipping address');
+        hasError = true;
+    }
+
+    if (!password || password.length < 6) {
+        showFieldError('password', 'passwordError', 'Password must be at least 6 characters');
+        hasError = true;
+    }
+
+    if (password !== confirmPassword) {
+        showFieldError('confirmPassword', 'confirmPasswordError', 'Passwords do not match');
+        hasError = true;
+    }
+
+    if (!agreeTerms) {
+        showAuthAlert('signupAlert', 'Please agree to the Terms & Conditions', 'warning');
+        hasError = true;
+    }
+
+    if (hasError) return;
+
+    // Check if email already exists
+    const users = getUsers();
+    if (users.find(u => u.email === email)) {
+        showAuthAlert('signupAlert', 'This email is already registered. <a href="login.html" class="auth-link">Sign in instead</a>', 'danger');
+        return;
+    }
+
+    // Show loading state
+    $('#signupBtn .btn-text').hide();
+    $('#signupBtn .btn-loader').show();
+    $('#signupBtn').prop('disabled', true);
+
+    // Simulate a short delay for UX
+    setTimeout(() => {
+        const newUser = {
+            id: 'user_' + Date.now(),
+            name,
+            email,
+            phone,
+            address,
+            password,
+            joinDate: new Date().toISOString(),
+            orders: []
+        };
+
+        users.push(newUser);
+        saveUsers(users);
+
+        // Auto login
+        saveCurrentUser({
+            id: newUser.id,
+            name: newUser.name,
+            email: newUser.email,
+            phone: newUser.phone,
+            address: newUser.address,
+            joinDate: newUser.joinDate
+        });
+
+        showAuthAlert('signupAlert', 'Account created successfully! Redirecting...', 'success');
+
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 1500);
+    }, 800);
+}
+
+// ========================================
+// LOGIN
+// ========================================
+function handleLogin(event) {
+    event.preventDefault();
+
+    const email = $('#email').val().trim();
+    const password = $('#password').val();
+
+    // Clear previous errors
+    $('.invalid-feedback').text('').hide();
+    $('.auth-input').removeClass('is-invalid');
+
+    let hasError = false;
+
+    if (!email || !isValidEmail(email)) {
+        showFieldError('email', 'emailError', 'Please enter a valid email address');
+        hasError = true;
+    }
+
+    if (!password) {
+        showFieldError('password', 'passwordError', 'Please enter your password');
+        hasError = true;
+    }
+
+    if (hasError) return;
+
+    // Show loading state
+    $('#loginBtn .btn-text').hide();
+    $('#loginBtn .btn-loader').show();
+    $('#loginBtn').prop('disabled', true);
+
+    setTimeout(() => {
+        const users = getUsers();
+        const user = users.find(u => u.email === email && u.password === password);
+
+        if (user) {
+            saveCurrentUser({
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                phone: user.phone || '',
+                address: user.address || '',
+                joinDate: user.joinDate || new Date().toISOString()
+            });
+
+            showAuthAlert('loginAlert', `Welcome back, ${user.name}! Redirecting...`, 'success');
+
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1200);
+        } else {
+            $('#loginBtn .btn-text').show();
+            $('#loginBtn .btn-loader').hide();
+            $('#loginBtn').prop('disabled', false);
+            showAuthAlert('loginAlert', 'Invalid email or password. Please try again.', 'danger');
+        }
+    }, 800);
+}
+
+// Show field-level validation error
+function showFieldError(fieldId, errorId, message) {
+    $('#' + fieldId).addClass('is-invalid');
+    $('#' + errorId).text(message).show();
+}
+
+// ========================================
+// LOGOUT
+// ========================================
+function handleLogout() {
+    localStorage.removeItem('fashionStoreCurrentUser');
+    showToast('Signed out successfully!');
+    setTimeout(() => {
+        window.location.href = 'login.html';
+    }, 800);
+}
+
+// ========================================
+// PROFILE MANAGEMENT
+// ========================================
+function loadProfileData() {
+    const user = getCurrentUser();
+    if (!user) return;
+
+    // Set profile header
+    $('#profileGreeting').text(`Hello, ${user.name}!`);
+    $('#profileEmail').text(user.email);
+    
+    // Set avatar initials
+    const initials = user.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+    $('#profileAvatar').html(`<span>${initials}</span>`);
+
+    // Set form values
+    $('#profileName').val(user.name);
+    $('#profileEmailInput').val(user.email);
+    $('#profilePhone').val(user.phone || 'Not set');
+    $('#profileAddress').val(user.address || 'Not set');
+    
+    const joinDate = user.joinDate ? new Date(user.joinDate).toLocaleDateString('en-US', {
+        year: 'numeric', month: 'long', day: 'numeric'
+    }) : 'N/A';
+    $('#profileJoinDate').val(joinDate);
+
+    // Stats
+    const cart = JSON.parse(localStorage.getItem('fashionStoreCart')) || [];
+    $('#cartItemsCount').text(cart.length);
+
+    // Load order history
+    const users = getUsers();
+    const fullUser = users.find(u => u.email === user.email);
+    const orders = fullUser?.orders || [];
+    $('#totalOrders').text(orders.length);
+    loadOrderHistory(orders);
+}
+
+function toggleEditProfile() {
+    const inputs = ['profileName', 'profilePhone', 'profileAddress'];
+    const isEditing = !$('#profileName').prop('disabled');
+
+    if (isEditing) {
+        // Cancel editing
+        cancelEditProfile();
+    } else {
+        // Enable editing
+        inputs.forEach(id => {
+            const input = $('#' + id);
+            if (input.val() === 'Not set') input.val('');
+            input.prop('disabled', false);
+        });
+        $('#profileActions').removeClass('d-none');
+        $('#editProfileBtn').html('<i class="fas fa-times"></i> Cancel').removeClass('btn-primary').addClass('btn-secondary');
+    }
+}
+
+function cancelEditProfile() {
+    const inputs = ['profileName', 'profilePhone', 'profileAddress'];
+    inputs.forEach(id => $('#' + id).prop('disabled', true));
+    $('#profileActions').addClass('d-none');
+    $('#editProfileBtn').html('<i class="fas fa-edit"></i> Edit').removeClass('btn-secondary').addClass('btn-primary');
+    loadProfileData(); // Reset values
+}
+
+function handleProfileUpdate(event) {
+    event.preventDefault();
+
+    const user = getCurrentUser();
+    if (!user) return;
+
+    const name = $('#profileName').val().trim();
+    const phone = $('#profilePhone').val().trim();
+    const address = $('#profileAddress').val().trim();
+
+    if (!name || name.length < 2) {
+        showAuthAlert('profileAlert', 'Name must be at least 2 characters', 'danger');
+        return;
+    }
+
+    // Update in users list
+    const users = getUsers();
+    const idx = users.findIndex(u => u.email === user.email);
+    if (idx !== -1) {
+        users[idx].name = name;
+        users[idx].phone = phone;
+        users[idx].address = address;
+        saveUsers(users);
+    }
+
+    // Update current user
+    user.name = name;
+    user.phone = phone;
+    user.address = address;
+    saveCurrentUser(user);
+
+    showAuthAlert('profileAlert', 'Profile updated successfully!', 'success');
+    
+    // Disable fields again
+    cancelEditProfile();
+    loadProfileData();
+}
+
+// ========================================
+// ORDER HISTORY
+// ========================================
+function loadOrderHistory(orders) {
+    const container = $('#orderHistoryContainer');
+    
+    if (!orders || orders.length === 0) {
+        container.html(`
+            <div class="text-center py-5">
+                <i class="fas fa-box-open fa-4x text-muted mb-3" style="opacity: 0.3;"></i>
+                <h5 class="text-muted">No orders yet</h5>
+                <p class="text-muted small">When you make a purchase, your orders will appear here.</p>
+                <a href="products.html" class="btn auth-btn btn-sm mt-2">
+                    <i class="fas fa-shopping-bag"></i> Start Shopping
+                </a>
+            </div>
+        `);
+        return;
+    }
+
+    let html = '';
+    orders.forEach((order, index) => {
+        const statusColors = {
+            'Processing': 'warning',
+            'Shipped': 'info',
+            'Delivered': 'success',
+            'Cancelled': 'danger'
+        };
+        const statusColor = statusColors[order.status] || 'secondary';
+        const date = new Date(order.date).toLocaleDateString('en-US', {
+            year: 'numeric', month: 'short', day: 'numeric'
+        });
+
+        html += `
+            <div class="order-card mb-3">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div>
+                        <h6 class="mb-1">Order #${order.id}</h6>
+                        <small class="text-muted">${date}</small>
+                    </div>
+                    <span class="badge bg-${statusColor}">${order.status}</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-muted small">${order.items} item(s)</span>
+                    <strong class="text-primary">$${order.total.toFixed(2)}</strong>
+                </div>
+            </div>
+        `;
+    });
+
+    container.html(html);
+}
+
+// Save an order (called from checkout)
+function saveOrder(orderData) {
+    const user = getCurrentUser();
+    if (!user) return;
+
+    const users = getUsers();
+    const idx = users.findIndex(u => u.email === user.email);
+    if (idx !== -1) {
+        if (!users[idx].orders) users[idx].orders = [];
+        users[idx].orders.unshift({
+            id: 'ORD-' + Date.now().toString(36).toUpperCase(),
+            date: new Date().toISOString(),
+            items: orderData.items,
+            total: orderData.total,
+            status: 'Processing'
+        });
+        saveUsers(users);
+    }
+}
+
+// ========================================
+// CHANGE PASSWORD
+// ========================================
+function handleChangePassword(event) {
+    event.preventDefault();
+
+    const currentPassword = $('#currentPassword').val();
+    const newPassword = $('#newPassword').val();
+    const confirmNewPassword = $('#confirmNewPassword').val();
+
+    if (!currentPassword) {
+        showAuthAlert('securityAlert', 'Please enter your current password', 'danger');
+        return;
+    }
+
+    if (!newPassword || newPassword.length < 6) {
+        showAuthAlert('securityAlert', 'New password must be at least 6 characters', 'danger');
+        return;
+    }
+
+    if (newPassword !== confirmNewPassword) {
+        showAuthAlert('securityAlert', 'New passwords do not match', 'danger');
+        return;
+    }
+
+    const user = getCurrentUser();
+    const users = getUsers();
+    const idx = users.findIndex(u => u.email === user.email);
+
+    if (idx === -1) {
+        showAuthAlert('securityAlert', 'User not found', 'danger');
+        return;
+    }
+
+    if (users[idx].password !== currentPassword) {
+        showAuthAlert('securityAlert', 'Current password is incorrect', 'danger');
+        return;
+    }
+
+    users[idx].password = newPassword;
+    saveUsers(users);
+
+    showAuthAlert('securityAlert', 'Password changed successfully!', 'success');
+    $('#changePasswordForm')[0].reset();
+}
+
+// ========================================
+// DELETE ACCOUNT
+// ========================================
+function handleDeleteAccount() {
+    const modal = new bootstrap.Modal(document.getElementById('deleteAccountModal'));
+    modal.show();
+}
+
+function confirmDeleteAccount() {
+    const confirmText = $('#deleteConfirmInput').val().trim();
+    if (confirmText !== 'DELETE') {
+        alert('Please type DELETE to confirm.');
+        return;
+    }
+
+    const user = getCurrentUser();
+    if (!user) return;
+
+    let users = getUsers();
+    users = users.filter(u => u.email !== user.email);
+    saveUsers(users);
+    localStorage.removeItem('fashionStoreCurrentUser');
+    localStorage.removeItem('fashionStoreCart');
+
+    // Close modal
+    const modal = bootstrap.Modal.getInstance(document.getElementById('deleteAccountModal'));
+    if (modal) modal.hide();
+
+    showToast('Account deleted successfully.');
+    setTimeout(() => {
+        window.location.href = 'index.html';
+    }, 1200);
+}
+
+// ========================================
+// AUTH UI (Navbar)
+// ========================================
+function updateAuthUI() {
+    const userLink = $('a.nav-link i.fa-user').parent();
+    if (!userLink.length) return;
+
+    if (isLoggedIn()) {
+        const currentUser = getCurrentUser();
+        const firstName = currentUser.name.split(' ')[0];
+        const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+        
+        userLink.parent().addClass('dropdown');
+        userLink.replaceWith(`
+            <a class="nav-link dropdown-toggle user-nav-link" href="#" data-bs-toggle="dropdown">
+                <span class="nav-avatar">${initials}</span> ${firstName}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end user-dropdown">
+                <li class="dropdown-header">
+                    <strong>${currentUser.name}</strong><br>
+                    <small class="text-muted">${currentUser.email}</small>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="profile.html"><i class="fas fa-user-circle me-2"></i>My Profile</a></li>
+                <li><a class="dropdown-item" href="cart.html"><i class="fas fa-shopping-cart me-2"></i>My Cart</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="#" onclick="handleLogout()"><i class="fas fa-sign-out-alt me-2"></i>Sign Out</a></li>
+            </ul>
+        `);
+    } else {
+        userLink.attr('href', 'login.html');
+    }
+}

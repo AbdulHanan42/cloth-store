@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Glowsn</title>
+    <meta name="description" content="Manage your Glowsn profile, view order history, and update your account settings.">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-shopping-bag"></i> Glowsn
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products.html">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#searchModal"><i class="fas fa-search"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html"><i class="fas fa-user"></i></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link position-relative" href="cart.html">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" id="cartCount">0</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Section -->
+    <section class="profile-section py-5 mt-5">
+        <div class="container mt-4">
+            <!-- Profile Header -->
+            <div class="profile-header mb-4" data-aos="fade-up">
+                <div class="row align-items-center">
+                    <div class="col-auto">
+                        <div class="profile-avatar" id="profileAvatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <h2 class="mb-1" id="profileGreeting">Hello!</h2>
+                        <p class="text-muted mb-0" id="profileEmail">user@example.com</p>
+                        <span class="profile-badge"><i class="fas fa-crown"></i> Member</span>
+                    </div>
+                    <div class="col-auto">
+                        <button class="btn btn-outline-danger" onclick="handleLogout()">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Sidebar / Stats -->
+                <div class="col-lg-4" data-aos="fade-right">
+                    <!-- Stats Cards -->
+                    <div class="profile-stats mb-4">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-primary-soft">
+                                <i class="fas fa-shopping-bag"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4 id="totalOrders">0</h4>
+                                <p>Total Orders</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-success-soft">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4 id="wishlistCount">0</h4>
+                                <p>Wishlist</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon bg-warning-soft">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h4 id="cartItemsCount">0</h4>
+                                <p>Cart Items</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="profile-card">
+                        <h5 class="mb-3"><i class="fas fa-bolt"></i> Quick Actions</h5>
+                        <div class="d-grid gap-2">
+                            <a href="products.html" class="btn btn-outline-primary btn-sm">
+                                <i class="fas fa-store"></i> Browse Products
+                            </a>
+                            <a href="cart.html" class="btn btn-outline-success btn-sm">
+                                <i class="fas fa-shopping-cart"></i> View Cart
+                            </a>
+                            <button class="btn btn-outline-danger btn-sm" onclick="handleLogout()">
+                                <i class="fas fa-sign-out-alt"></i> Sign Out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content -->
+                <div class="col-lg-8" data-aos="fade-left">
+                    <!-- Tabs -->
+                    <ul class="nav nav-tabs profile-tabs mb-4" id="profileTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="info-tab" data-bs-toggle="tab" data-bs-target="#info" type="button" role="tab">
+                                <i class="fas fa-user"></i> Profile Info
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="orders-tab" data-bs-toggle="tab" data-bs-target="#orders" type="button" role="tab">
+                                <i class="fas fa-box"></i> Order History
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" type="button" role="tab">
+                                <i class="fas fa-shield-alt"></i> Security
+                            </button>
+                        </li>
+                    </ul>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content" id="profileTabContent">
+                        <!-- Profile Info Tab -->
+                        <div class="tab-pane fade show active" id="info" role="tabpanel">
+                            <div class="profile-card">
+                                <div class="d-flex justify-content-between align-items-center mb-4">
+                                    <h5 class="mb-0">Personal Information</h5>
+                                    <button class="btn btn-sm btn-primary" id="editProfileBtn" onclick="toggleEditProfile()">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </button>
+                                </div>
+
+                                <div id="profileAlert" class="auth-alert" style="display:none;"></div>
+
+                                <form id="profileForm" onsubmit="handleProfileUpdate(event)">
+                                    <div class="row g-3">
+                                        <div class="col-md-6">
+                                            <label class="form-label text-muted small">Full Name</label>
+                                            <div class="input-icon-wrapper">
+                                                <i class="fas fa-user"></i>
+                                                <input type="text" class="form-control auth-input" id="profileName" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label text-muted small">Email Address</label>
+                                            <div class="input-icon-wrapper">
+                                                <i class="fas fa-envelope"></i>
+                                                <input type="email" class="form-control auth-input" id="profileEmailInput" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label text-muted small">Phone Number</label>
+                                            <div class="input-icon-wrapper">
+                                                <i class="fas fa-phone"></i>
+                                                <input type="tel" class="form-control auth-input" id="profilePhone" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="form-label text-muted small">Member Since</label>
+                                            <div class="input-icon-wrapper">
+                                                <i class="fas fa-calendar"></i>
+                                                <input type="text" class="form-control auth-input" id="profileJoinDate" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label text-muted small">Shipping Address</label>
+                                            <div class="input-icon-wrapper">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                                <input type="text" class="form-control auth-input" id="profileAddress" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-4 d-none" id="profileActions">
+                                        <button type="submit" class="btn auth-btn me-2">
+                                            <i class="fas fa-save"></i> Save Changes
+                                        </button>
+                                        <button type="button" class="btn btn-outline-secondary" onclick="cancelEditProfile()">
+                                            Cancel
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Order History Tab -->
+                        <div class="tab-pane fade" id="orders" role="tabpanel">
+                            <div class="profile-card">
+                                <h5 class="mb-4">Order History</h5>
+                                <div id="orderHistoryContainer">
+                                    <!-- Orders will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Security Tab -->
+                        <div class="tab-pane fade" id="security" role="tabpanel">
+                            <div class="profile-card">
+                                <h5 class="mb-4">Change Password</h5>
+
+                                <div id="securityAlert" class="auth-alert" style="display:none;"></div>
+
+                                <form id="changePasswordForm" onsubmit="handleChangePassword(event)">
+                                    <div class="mb-3">
+                                        <label class="form-label text-muted small">Current Password</label>
+                                        <div class="input-icon-wrapper">
+                                            <i class="fas fa-lock"></i>
+                                            <input type="password" class="form-control auth-input" id="currentPassword" required>
+                                            <button type="button" class="password-toggle" onclick="togglePassword('currentPassword')">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label text-muted small">New Password</label>
+                                        <div class="input-icon-wrapper">
+                                            <i class="fas fa-lock"></i>
+                                            <input type="password" class="form-control auth-input" id="newPassword" required>
+                                            <button type="button" class="password-toggle" onclick="togglePassword('newPassword')">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label text-muted small">Confirm New Password</label>
+                                        <div class="input-icon-wrapper">
+                                            <i class="fas fa-lock"></i>
+                                            <input type="password" class="form-control auth-input" id="confirmNewPassword" required>
+                                            <button type="button" class="password-toggle" onclick="togglePassword('confirmNewPassword')">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn auth-btn">
+                                        <i class="fas fa-key"></i> Update Password
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div class="profile-card mt-4">
+                                <h5 class="mb-3 text-danger">Danger Zone</h5>
+                                <p class="text-muted small">Permanently delete your account and all associated data. This action cannot be undone.</p>
+                                <button class="btn btn-outline-danger btn-sm" onclick="handleDeleteAccount()">
+                                    <i class="fas fa-trash"></i> Delete Account
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Delete Account Confirmation Modal -->
+    <div class="modal fade" id="deleteAccountModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-danger">
+                    <h5 class="modal-title text-danger"><i class="fas fa-exclamation-triangle"></i> Delete Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete your account? This action is <strong>permanent</strong> and cannot be undone.</p>
+                    <p class="text-muted small">All your data, order history, and preferences will be permanently removed.</p>
+                    <div class="mb-3">
+                        <label class="form-label">Type <strong>DELETE</strong> to confirm:</label>
+                        <input type="text" class="form-control" id="deleteConfirmInput" placeholder="Type DELETE">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" onclick="confirmDeleteAccount()">
+                        <i class="fas fa-trash"></i> Delete My Account
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 Glowsn. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="js/script.js"></script>
+    <script>
+        // Redirect if not logged in
+        if (!isLoggedIn()) {
+            window.location.href = 'login.html';
+        } else {
+            loadProfileData();
+        }
+    </script>
+</body>
+</html>
